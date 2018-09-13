@@ -1,1 +1,26 @@
-<h1>hi it works </h1>
+<!-- <h1>hi it works </h1> -->
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for blog in blogs %}
+
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-header" style='text-align:center;'>
+      <h5>{{blog.username}}</h5>
+    </div>
+    <div class="card-body">
+      <p>{{blog.blog}}</p>
+      <a href="#">View Comments</a>
+    </div>
+    <div class="card-footer">
+      <div class="container-fluid">
+        <a class="btn btn-primary btn-md" href="#">Write comment</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+{% endblock %}
