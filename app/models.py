@@ -34,6 +34,7 @@ class Blog(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     blog = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    comments = db.relationship('Comment', backref='pitch', lazy='dynamic')
 
     def save_blog(self):
         db.session.add(self)
@@ -47,6 +48,24 @@ class Blog(db.Model):
     def get_blog(cls, user_id):
         blog = Blog.query.filter_by(id=user_id).all()
         return blog
+
+class Comment(db.Model):
+
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Integer, primary_key=True)
+    comment = db.Column(db.String)
+    author = db.Column(db.String(255))
+    blog_id = db.Column(db.Integer, db.ForeignKey("blogs.id"))
+
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_comment(cls, id):
+        comment = Comment.query.filter_by(blog_id=id).all()
+        return comment
 
 
 @login_manager.user_loader
