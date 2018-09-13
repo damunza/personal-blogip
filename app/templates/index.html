@@ -6,20 +6,23 @@
 {% for blog in blogs [::-1] %}
 
 <div class="container-fluid">
+  <div class="card-deck">
   <div class="card">
     <div class="card-header" style='text-align:center;'>
       <h5>{{blog.username}}</h5>
     </div>
     <div class="card-body">
       <p>{{blog.blog}}</p>
-      <a href="#">View Comments</a>
+      <a href="/comment/{{blog.id}}">View Comments</a>
     </div>
     <div class="card-footer">
       <div class="container-fluid">
-        <a class="btn btn-primary btn-md" href="#">Write comment</a>
+        <a class="btn btn-primary btn-md" href="/new_comment/{{blog.id}}">Write comment</a>
       </div>
     </div>
   </div>
+  <br>
+</div>
 </div>
 
 {% endfor %}
