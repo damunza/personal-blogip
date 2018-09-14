@@ -2,7 +2,7 @@ from flask import render_template, redirect,url_for
 from flask_login import login_required, current_user
 from . import main
 from .forms import BlogForm, CommentForm
-from ..models import Blog, Comment
+from ..models import Blog, Comment, User
 
 @main.route('/')
 def index():
@@ -54,3 +54,17 @@ def new_comment(id):
 
     title = 'New Comment'
     return render_template('new_comment.html', title = title, comment_form = form, pitch_id = id)
+
+@main.route('/bloger/<uname>')
+@login_required
+def profile(uname):
+    user = User.query.filter_by(username = uname).first()
+    if user is None:
+        abort(404)
+
+    post = Blog.get_blog(user_id = current_user.id)
+    print(post)
+
+    title = uname
+
+    return render_template('profile.html', user = user, blogs = post,title=title)
