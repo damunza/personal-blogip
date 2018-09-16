@@ -33,7 +33,7 @@ def new_blog():
 @main.route('/comment/<id>')
 def comment(id):
     '''
-    function to return the pitches
+    function to return the comment
     '''
     comment = Comment.get_comment(id)
     print(comment)
@@ -88,9 +88,22 @@ def blog(id):
 @login_required
 def viewcomment(id):
     '''
-    function to return the pitches
+    function to return the comments
     '''
     comment = Comment.get_comment(id)
     print(comment)
     title = 'comments'
     return render_template('pro-comment.html',title = title, comment = comment)
+
+@main.route('/del-comment/<id>')
+@login_required
+def delcomment(id):
+    '''
+    function to delete comments
+    '''
+    comment = Comment.query.filter_by(id = id).first()
+    db.session.delete(comment)
+    db.session.commit()
+    print(comment)
+    title = 'delete comments'
+    return render_template('delete.html',title = title, comment = comment)
