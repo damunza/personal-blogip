@@ -1,8 +1,9 @@
-from flask import render_template, redirect,url_for
+from flask import render_template, redirect,url_for,abort
 from flask_login import login_required, current_user
 from . import main
 from .forms import BlogForm, CommentForm
 from ..models import Blog, Comment, User
+from .. import db
 
 @main.route('/')
 def index():
@@ -68,3 +69,16 @@ def profile(uname):
     title = uname
 
     return render_template('profile.html', user = user, blogs = post,title=title)
+
+@main.route('/blog/<id>')
+@login_required
+def blog(id):
+
+    post = Blog.query.filter_by(id=id).first()
+    db.session.delete(post)
+    db.session.commit()
+    print(post)
+
+    title = 'Delete blog'
+
+    return render_template('delete.html', title = title, blogs = post)
