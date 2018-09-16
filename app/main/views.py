@@ -63,9 +63,9 @@ def profile(uname):
     if user is None:
         abort(404)
 
-    post = Blog.get_blog(user_id = current_user.id)
+    post = Blog.query.filter_by(user_id = current_user.id).all()
     print(post)
-    print(current_user.id)
+
 
     title = uname
 
@@ -83,3 +83,14 @@ def blog(id):
     title = 'Delete blog'
 
     return render_template('delete.html', title = title, blogs = post)
+
+@main.route('/pro-comment/<id>')
+@login_required
+def viewcomment(id):
+    '''
+    function to return the pitches
+    '''
+    comment = Comment.get_comment(id)
+    print(comment)
+    title = 'comments'
+    return render_template('pro-comment.html',title = title, comment = comment)
