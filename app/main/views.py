@@ -65,6 +65,7 @@ def profile(uname):
 
     post = Blog.get_blog(user_id = current_user.id)
     print(post)
+    print(current_user.id)
 
     title = uname
 
