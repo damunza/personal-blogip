@@ -10,3 +10,9 @@ class CommentForm(FlaskForm):
     author = StringField('Author',validators=[Required()])
     comment = TextAreaField('Your Comment')
     submit = SubmitField('Submit')
+
+class SubscriberForm(FlaskForm):
+
+    email = StringField('Your Email Address')
+    name = StringField('Enter your name',validators = [Required()])
+    submit = SubmitField('Subscribe')

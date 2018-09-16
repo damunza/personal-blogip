@@ -1,0 +1,3 @@
+Hello {{user.username}}
+
+there is a new blog on B-l-o-g that is under your subscription visit the site and enjoy the blog. Don't forget to leave a comment.

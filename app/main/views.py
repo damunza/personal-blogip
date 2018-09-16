@@ -1,8 +1,9 @@
 from flask import render_template, redirect,url_for,abort
 from flask_login import login_required, current_user
 from . import main
-from .forms import BlogForm, CommentForm
-from ..models import Blog, Comment, User
+from .forms import BlogForm, CommentForm, SubscriberForm
+from ..models import Blog, Comment, User, Subscriber
+from ..email import mail_message
 from .. import db
 
 @main.route('/')
@@ -107,3 +108,24 @@ def delcomment(id):
     print(comment)
     title = 'delete comments'
     return render_template('delete.html',title = title, comment = comment)
+
+@main.route('/subscribe', methods=['GET','POST'])
+def subscriber():
+
+   subscriber_form=SubscriberForm()
+
+   if subscriber_form.validate_on_submit():
+
+       subscriber= Subscriber(email=subscriber_form.email.data,name = subscriber_form.name.data)
+       subscriber.save_subscriber()
+
+       mail_message("Hello, New post on let us B-l-o-g.", "welcome_subscriber", subscriber.email,
+                    subscriber=subscriber)
+
+   subscriber = Blog.query.all()
+
+   blog = Blog.query.all()
+
+   return render_template('subscription.html', subscriber=subscriber, subscriber_form=subscriber_form, blog=blog)
+
+
