@@ -35,22 +35,22 @@ class CommentModelTest(unittest.TestCase):
         self.get_comments = Comment.get_comment(1)
         self.assertEquals(self.get_comments, [] )
 
-# class BlogModelTest(unittest.TestCase):
-#
-#     def setUp(self):
-#         self.new_blog = Blog(id = 1, blog = 'ha',user_id = 1)
-#
-#     def test_instance(self):
-#         self.assertTrue(isinstance(self.new_blog,Blog))
-#
-#     def test_variables(self):
-#         self.assertEquals(self.new_blog.id,1)
-#         self.assertEquals(self.new_blog.blog, 'ha')
-#         self.assertEquals(self.new_blog.user_id, 1)
-#
-#     def test_get_blog(self):
-#         self.get_blog = Blog.get_blog(1)
-#         self.assertEquals(self.get_blog, [])
+class BlogModelTest(unittest.TestCase):
+
+    def setUp(self):
+        self.new_blog = Blog(id = 1, blog = 'ha',user_id = 1)
+
+    def test_instance(self):
+        self.assertTrue(isinstance(self.new_blog,Blog))
+
+    def test_variables(self):
+        self.assertEquals(self.new_blog.id,1)
+        self.assertEquals(self.new_blog.blog, 'ha')
+        self.assertEquals(self.new_blog.user_id, 1)
+
+    def test_get_blog(self):
+        self.get_blog = Blog.get_blog(1)
+        self.assertEquals(self.get_blog, [])
 
 
 
