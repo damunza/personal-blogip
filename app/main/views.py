@@ -5,6 +5,7 @@ from .forms import BlogForm, CommentForm, SubscriberForm
 from ..models import Blog, Comment, User, Subscriber
 from ..email import mail_message
 from .. import db
+import markdown2
 
 @main.route('/')
 def index():
@@ -59,10 +60,10 @@ def new_comment(id):
 
 @main.route('/bloger/<uname>')
 @login_required
+
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
-    if user is None:
-        abort(404)
+    # abort(404)
 
     post = Blog.query.filter_by(user_id = current_user.id).all()
     print(post)
@@ -127,5 +128,36 @@ def subscriber():
    blog = Blog.query.all()
 
    return render_template('subscription.html', subscriber=subscriber, subscriber_form=subscriber_form, blog=blog)
+
+@main.route('/blog/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_blog(id):
+    """
+    Edit a blogpost in the database
+    """
+    new_blog=False
+
+    blog = Blog.query.get(id)
+    form = BlogForm()
+
+    if form.validate_on_submit():
+
+        blog.blog = form.blog.data
+
+        db.session.commit()
+
+        print('edited comment ')
+
+
+        return redirect(url_for('main.index'))
+
+    form.blog.data = blog.blog
+
+
+    return render_template('new_blog.html',
+                           action = 'Edit',
+                           new_blog = new_blog,
+                           blog_form = form,
+                           legend='Update Post')
 
 

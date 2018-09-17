@@ -14,6 +14,8 @@ class Config:
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
     SUBJECT_PREFIX = 'Lets Blog!'
     SENDER_EMAIL = 'dmndan124@gmail.com'
+
+
     SIMPLEMDE_JS_IIFE = True
     SIMPLEMDE_USE_CDN = True
 
