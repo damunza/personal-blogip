@@ -52,5 +52,16 @@ class BlogModelTest(unittest.TestCase):
         self.get_blog = Blog.get_blog(1)
         self.assertEquals(self.get_blog, [])
 
+class SubscriberModelTest(unittest.TestCase):
 
+    def setUp(self):
+        self.new_subscriber = Subscriber(id = 1 , name = 'ha', email = 'he')
+
+    def test_instance(self):
+        self.assertTrue(isinstance(self.new_subscriber,Subscriber))
+
+    def test_variables(self):
+        self.assertEquals(self.new_subscriber.id, 1)
+        self.assertEquals(self.new_subscriber.name, 'ha')
+        self.assertEquals(self.new_subscriber.email, 'he')
 
